@@ -13,6 +13,7 @@ variable "stage" {
 variable "sg-tag-name" {
   description = "The Name to apply to the security group"
   type        =   string
+  default = "evio-sg"
 }
 
 variable "PATH_TO_PUBLIC_KEY"  {
