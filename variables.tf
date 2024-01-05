@@ -17,7 +17,7 @@ variable "sg-tag-name" {
 }
 
 variable "PATH_TO_PUBLIC_KEY"  {
-  default = "/home/rjtch/Desktop/workspace/evio_deployment/module/aws/aws_key.pub"
+  default = "/Users/rjtch/Desktop/workspace/smartsec/evio_deployment/module/aws/aws_key.pub"
 }
 
 variable "ssh_key_pair" {
@@ -65,7 +65,7 @@ variable "monitoring" {
 variable "private_ip" {
   type        = string
   description = "Private IP address to associate with the instance in the VPC"
-  default     = ""
+  default     = "0.0.0.0"
 }
 
 variable "security_groups" {

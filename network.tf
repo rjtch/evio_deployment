@@ -44,7 +44,7 @@ resource "aws_instance" "instance" {
       type        = "ssh"
       host        = "${self.public_ip}"
       user        = "ubuntu"
-      private_key = file("/home/rjtch/Desktop/workspace/evio_deployment/module/aws/aws_key")
+      private_key = "${file("/Users/rjtch/Desktop/workspace/smartsec/evio_deployment/module/aws/aws_key")}"
       timeout     = "4m"
    }
 
@@ -66,7 +66,6 @@ resource "aws_vpc" "vpc" {
   enable_dns_support = "true"
   cidr_block = "10.0.0.0/16"
   enable_dns_hostnames = "true" #gives an internal host name
-  enable_classiclink = "false"
   instance_tenancy = "default"
   tags = {
     Name = "${lower(var.prefix)}-vpc"
