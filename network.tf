@@ -20,7 +20,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_key_pair" "mykey" {
   key_name    = var.ssh_key_pair
-  public_key  = file(var.PATH_TO_PUBLIC_KEY)
+  public_key  = "${file(var.PATH_TO_PUBLIC_KEY)}"
 }
 
 resource "aws_instance" "instance" {
@@ -35,8 +35,8 @@ resource "aws_instance" "instance" {
 
   provisioner "remote-exec" {
     inline = [
-      "touch hello.txt",
-      "echo helloworld remote provisioner >> hello.txt",
+      "ssh-keygen -f aws_key",
+      "mv aws_key aws_key.pub ./module/aws",
     ]
   }
 
@@ -44,7 +44,7 @@ resource "aws_instance" "instance" {
       type        = "ssh"
       host        = "${self.public_ip}"
       user        = "ubuntu"
-      private_key = "${file("/Users/rjtch/Desktop/workspace/smartsec/evio_deployment/module/aws/aws_key")}"
+      private_key = "${file("./module/aws/aws_key")}"
       timeout     = "4m"
    }
 
@@ -55,7 +55,7 @@ resource "aws_instance" "instance" {
 
 resource "aws_eip" "eip" {
   instance = aws_instance.instance.id
-  vpc      = true
+  domain = "vpc"
   
   tags = {
     Name = "${lower(var.prefix)}-eip"
